@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" class="lang-en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmony Hills Academy | ሃርሞኒ ሂልስ አካዳሚ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="tail-container text-gray-100 bg-gradient-to-b from-slate-950 to-slate-900">
+
+    <!-- NAV -->
+    <nav class="bg-slate-900/95 backdrop-blur-lg shadow-2xl fixed top-0 left-0 right-0 z-50 border-b border-emerald-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-2xl flex items-center justify-center text-white text-4xl font-black shadow-xl">HH</div>
+                    <span class="heading-font text-4xl font-bold tracking-tighter glow">
+                        <span data-en>Harmony Hills</span><span data-am>ሃርሞኒ ሂልስ</span>
+                    </span>
+                </div>
+
+                <div class="hidden lg:flex items-center gap-10 text-lg font-medium">
+                    <a href="#home" class="nav-link"><span data-en>Home</span><span data-am>መነሻ</span></a>
+                    <a href="#programs" class="nav-link"><span data-en>Programs</span><span data-am>ፕሮግራሞች</span></a>
+                    <a href="#about" class="nav-link"><span data-en>About</span><span data-am>ስለ እኛ</span></a>
+                    <a href="#edupage" class="nav-link"><span data-en>EduPage</span><span data-am>ኤዱፔጅ</span></a>
+                    <a href="#contact" class="nav-link"><span data-en>Contact</span><span data-am>ያነጋግሩን</span></a>
+
+                    <div class="flex items-center gap-2 bg-slate-800 rounded-2xl p-1">
+                        <button onclick="switchLanguage('en')" class="lang-btn px-5 py-2 rounded-xl font-medium transition" data-lang="en">EN</button>
+                        <button onclick="switchLanguage('am')" class="lang-btn px-5 py-2 rounded-xl font-medium transition" data-lang="am">አማ</button>
+                    </div>
+
+                    <button onclick="showLoginModal()" class="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 text-white px-8 py-3 rounded-3xl font-semibold flex items-center gap-2 shadow-lg">
+                        <i class="fas fa-rocket"></i>
+                        <span data-en>Portal Login</span><span data-am>ፖርታል ግባ</span>
+                    </button>
+                </div>
+
+                <div class="lg:hidden flex items-center gap-4">
+                    <button onclick="switchLanguage('en')" class="lang-btn text-emerald-400 font-bold" data-lang="en">EN</button>
+                    <button onclick="switchLanguage('am')" class="lang-btn text-emerald-400 font-bold" data-lang="am">አማ</button>
+                    <button id="mobile-menu-btn" class="text-4xl text-emerald-400"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 pt-28 pb-24 space-y-40">
+
+        <!-- HERO -->
+        <section id="home" class="hero-bg py-44 rounded-3xl flex items-center min-h-[90vh]">
+            <div class="max-w-4xl mx-auto text-center px-6">
+                <h1 class="heading-font text-7xl md:text-8xl font-black tracking-tighter mb-6 glow">
+                    <span data-en>Center of Excellence</span>
+                    <span data-am>የዕውቀት ማእከል</span>
+                </h1>
+                <p class="text-3xl text-emerald-100 max-w-3xl mx-auto">
+                    <span data-en>Shaping future leaders in the heart of Addis Ababa</span>
+                    <span data-am>በአዲስ አበባ ልብ የወደፊት መሪዎችን እናዳብራለን</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- PROMISE -->
+        <section class="py-24 bg-slate-900">
+            <div class="max-w-5xl mx-auto text-center px-6">
+                <div class="inline-flex flex-col items-center gap-4 bg-slate-800/80 backdrop-blur-md px-16 py-12 rounded-3xl border border-emerald-700 shadow-2xl">
+                    <span class="text-7xl">✨</span>
+                    <p class="promise text-6xl font-bold tracking-tighter">
+                        <span data-en>Our Promise:</span>
+                        <span data-am>ተስፋችን፡</span>
+                    </p>
+                    <p class="text-5xl font-semibold text-white">
+                        <span data-en>Every Child Has to Shine</span>
+                        <span data-am>እያንዳንዱ ልጅ ማብራት አለበት</span>
+                    </p>
+                </div>
+                <p class="mt-12 text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    <span data-en>We don’t just teach subjects. We discover and ignite the unique brilliance inside every single child.</span>
+                    <span data-am>ትምህርት ብቻ አንሰጥም። በእያንዳንዱ ልጅ ውስጥ ያለውን ልዩ ብልጫ እናገኛለን እና እናበራለን።</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- WHY PARENTS CHOOSE US -->
+        <section class="py-32 bg-gradient-to-b from-slate-900 to-emerald-950">
+            <div class="max-w-6xl mx-auto px-6 text-center">
+                <h2 class="heading-font text-6xl font-bold mb-6 text-white">
+                    <span data-en>Why Parents Choose Harmony Hills</span>
+                    <span data-am>ወላጆች ሃርሞኒ ሂልስን ለምን ይመርጣሉ</span>
+                </h2>
+                <p class="text-2xl text-emerald-100 mb-16 max-w-3xl mx-auto">
+                    Because we deliver what most schools only promise.
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-10">
+                    <div class="glass rounded-3xl p-10 card-hover">
+                        <div class="text-6xl mb-6">🔥</div>
+                        <h3 class="text-3xl font-bold mb-4 text-emerald-400">Small Classes</h3>
+                        <p class="text-gray-300 text-lg">Maximum 18 students per class so every child gets individual attention.</p>
+                    </div>
+                    <div class="glass rounded-3xl p-10 card-hover">
+                        <div class="text-6xl mb-6">🌍</div>
+                        <h3 class="text-3xl font-bold mb-4 text-emerald-400">Global + Ethiopian</h3>
+                        <p class="text-gray-300 text-lg">Strong Ethiopian values + Cambridge/IGCSE standards. Proud roots, global wings.</p>
+                    </div>
+                    <div class="glass rounded-3xl p-10 card-hover">
+                        <div class="text-6xl mb-6">🚀</div>
+                        <h3 class="text-3xl font-bold mb-4 text-emerald-400">Real Results</h3>
+                        <p class="text-gray-300 text-lg">Our graduates get accepted into top universities in Ethiopia and abroad.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCHOOL VALUES -->
+        <section class="py-32 bg-slate-950">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="heading-font text-6xl font-bold text-white mb-4">
+                        <span data-en>Our Core Values</span>
+                        <span data-am>ዋና እሴቶቻችን</span>
+                    </h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="glass rounded-3xl p-8 text-center card-hover">
+                        <div class="text-5xl mb-6">🌟</div>
+                        <h3 class="text-2xl font-bold mb-3 text-emerald-400">Excellence</h3>
+                        <p class="text-gray-300">We strive for the highest standards in everything we do.</p>
+                    </div>
+                    <div class="glass rounded-3xl p-8 text-center card-hover">
+                        <div class="text-5xl mb-6">❤️</div>
+                        <h3 class="text-2xl font-bold mb-3 text-emerald-400">Compassion</h3>
+                        <p class="text-gray-300">Kindness and care for every child and family.</p>
+                    </div>
+                    <div class="glass rounded-3xl p-8 text-center card-hover">
+                        <div class="text-5xl mb-6">🧠</div>
+                        <h3 class="text-2xl font-bold mb-3 text-emerald-400">Innovation</h3>
+                        <p class="text-gray-300">Encouraging creativity and critical thinking.</p>
+                    </div>
+                    <div class="glass rounded-3xl p-8 text-center card-hover">
+                        <div class="text-5xl mb-6">🇪🇹</div>
+                        <h3 class="text-2xl font-bold mb-3 text-emerald-400">Integrity & Pride</h3>
+                        <p class="text-gray-300">Strong morals and pride in our Ethiopian heritage.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROGRAMS -->
+        <section id="programs" class="py-32">
+            <div class="text-center mb-16">
+                <h2 class="heading-font text-6xl font-bold text-white mb-4">
+                    <span data-en>Our Academic Programs</span>
+                    <span data-am>የትምህርት ፕሮግራሞቻችን</span>
+                </h2>
+            </div>
+            <div class="glass rounded-3xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-emerald-900/70">
+                            <tr>
+                                <th class="p-6 text-emerald-300"><span data-en>Grade</span><span data-am>ደረጃ</span></th>
+                                <th class="p-6 text-emerald-300"><span data-en>Age</span><span data-am>ዕድሜ</span></th>
+                                <th class="p-6 text-emerald-300"><span data-en>Program</span><span data-am>ፕሮግራም</span></th>
+                                <th class="p-6 text-emerald-300"><span data-en>Key Focus</span><span data-am>ዋና ትኩረት</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-emerald-900/30 text-gray-200">
+                            <tr><td class="p-6 font-medium">Pre-K (KG1)</td><td class="p-6">3-4</td><td class="p-6">Early Childhood</td><td class="p-6">Play-based, Social skills</td></tr>
+                            <tr><td class="p-6 font-medium">KG2</td><td class="p-6">4-5</td><td class="p-6">Kindergarten</td><td class="p-6">Phonics, Math, Arts</td></tr>
+                            <tr><td class="p-6 font-medium">Grade 1-4</td><td class="p-6">6-10</td><td class="p-6">Primary</td><td class="p-6">Core subjects, Character</td></tr>
+                            <tr><td class="p-6 font-medium">Grade 5-8</td><td class="p-6">11-14</td><td class="p-6">Middle School</td><td class="p-6">Critical thinking, Leadership</td></tr>
+                            <tr><td class="p-6 font-medium">Grade 9-10</td><td class="p-6">15-16</td><td class="p-6">Lower Secondary</td><td class="p-6">IGCSE Foundation</td></tr>
+                            <tr><td class="p-6 font-medium">Grade 11-12</td><td class="p-6">17-18</td><td class="p-6">Upper Secondary</td><td class="p-6">University Preparation</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="py-32 bg-slate-900">
+            <div class="max-w-5xl mx-auto px-6">
+                <h2 class="heading-font text-6xl font-bold text-center mb-16 text-white">
+                    <span data-en>About Harmony Hills</span><span data-am>ስለ ሃርሞኒ ሂልስ</span>
+                </h2>
+
+                <div class="glass rounded-3xl p-12 mb-16 text-center">
+                    <p class="text-xl leading-relaxed max-w-3xl mx-auto">
+                        <span data-en>Harmony Hills Academy is a premier private school in Lemi Kura, Addis Ababa, committed to nurturing well-rounded students through quality education that combines Ethiopian values with international standards.</span>
+                        <span data-am>ሃርሞኒ ሂልስ አካዳሚ በለሚ ኩራ፣ አዲስ አበባ የሚገኝ ጥራት ያለው የግል ትምህርት ቤት ሲሆን፣ የኢትዮጵያ እሴቶችን ከአለም አቀፍ መመዘኛዎች ጋር በማጣመር ሚዛናዊ ተማሪዎችን ለማፍራት ቁርጠኛ ነው።</span>
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="glass rounded-3xl p-10 card-hover">
+                        <div class="text-6xl mb-6">🎯</div>
+                        <h3 class="text-4xl font-bold mb-6 text-emerald-400">
+                            <span data-en>Our Goal</span><span data-am>አላማችን</span>
+                        </h3>
+                        <p class="text-gray-300 text-lg leading-relaxed">
+                            <span data-en>To develop confident, compassionate, and competent young leaders who uphold Ethiopian values while embracing global opportunities.</span>
+                            <span data-am>የኢትዮጵያ እሴቶችን በመጠበቅ እና ዓለም አቀፍ እድሎችን በመቀበል በራስ መተማመን ያላቸው፣ ርኅራኄ ያላቸው እና ብቃት ያላቸው ወጣት መሪዎችን ማፍራት።</span>
+                        </p>
+                    </div>
+
+                    <div class="glass rounded-3xl p-10 card-hover">
+                        <div class="text-6xl mb-6">🌟</div>
+                        <h3 class="text-4xl font-bold mb-6 text-emerald-400">
+                            <span data-en>Our Vision</span><span data-am>ራዕያችን</span>
+                        </h3>
+                        <p class="text-gray-300 text-lg leading-relaxed">
+                            <span data-en>To become Ethiopia’s leading center of educational excellence by 2030, where every student discovers and achieves their full potential.</span>
+                            <span data-am>እስከ 2030 በኢትዮጵያ ውስጥ የትምህርት ልብ ወለድ ማእከል ሆኖ መቆም፣ እያንዳንዱ ተማሪ ሙሉ አቅሙን እንዲያገኝ ማድረግ።</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- HILLSPAGE -->
+<section id="edupage" class="py-32 bg-gradient-to-b from-emerald-950 to-slate-950">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="future-font text-7xl font-bold text-emerald-400 glow">
+                <span data-en>HillsPage</span><span data-am>ሂልስፔጅ</span>
+            </h2>
+            <p class="text-2xl text-gray-300 mt-4">
+                <span data-en>Student & Parent Portal</span><span data-am>ተማሪና ወላጅ ፖርታል</span>
+            </p>
+        </div>
+
+        <!-- Welcome -->
+        <div class="glass rounded-3xl p-8 mb-12 text-center">
+            <h3 class="text-3xl font-bold mb-2">
+                <span data-en>Welcome back, Kidus!</span>
+                <span data-am>እንኳን ደህና መጣህ, Kidus!</span>
+            </h3>
+            <p class="text-emerald-400"></p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Timetable with Time + Subject -->
+            <div class="glass rounded-3xl p-8 card-hover">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="text-4xl">📅</div>
+                    <div>
+                        <h3 class="text-2xl font-bold"><span data-en>Timetable</span><span data-am>ጊዜ ሰሌዳ</span></h3>
+                        <p class="text-emerald-400 text-sm">Monday 30 March 2026</p>
+                    </div>
+                </div>
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between bg-slate-800/70 p-3 rounded-2xl">
+                        <span>8:45 - 9:30</span>
+                        <span class="font-medium">Mathematics</span>
+                    </div>
+                    <div class="flex justify-between bg-slate-800/70 p-3 rounded-2xl">
+                        <span>9:30 - 10:15</span>
+                        <span class="font-medium">English</span>
+                    </div>
+                    <div class="flex justify-between bg-slate-800/70 p-3 rounded-2xl">
+                        <span>10:45 - 11:30</span>
+                        <span class="font-medium">Biology</span>
+                    </div>
+                    <div class="flex justify-between bg-slate-800/70 p-3 rounded-2xl">
+                        <span>11:30 - 12:15</span>
+                        <span class="font-medium">History</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            <div class="glass rounded-3xl p-8 card-hover">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="text-4xl">✉️</div>
+                    <h3 class="text-2xl font-bold"><span data-en>Messages</span><span data-am>መልእክቶች</span></h3>
+                </div>
+                <div class="space-y-4 text-sm">
+                    <div class="bg-slate-800/70 p-4 rounded-2xl">
+                        <p class="text-emerald-400">18 Mar • Administrator</p>
+                        <p>School will be closed on Thursday 19th March 2026</p>
+                    </div>
+                    <div class="bg-slate-800/70 p-4 rounded-2xl">
+                        <p class="text-emerald-400">16 Mar • Administrator</p>
+                        <p>Second installment payment reminder</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Access -->
+            <div class="glass rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-bold mb-6"><span data-en>Quick Access</span><span data-am>ፈጣን መዳረሻ</span></h3>
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <div class="bg-slate-800 hover:bg-emerald-900 p-6 rounded-2xl cursor-pointer transition">
+                        <div class="text-3xl mb-2">📚</div>
+                        <p class="font-medium"><span data-en>My Courses</span><span data-am>የእኔ ትምህርቶች</span></p>
+                    </div>
+                    <div class="bg-slate-800 hover:bg-emerald-900 p-6 rounded-2xl cursor-pointer transition">
+                        <div class="text-3xl mb-2">📊</div>
+                        <p class="font-medium"><span data-en>Grades</span><span data-am>ውጤቶች</span></p>
+                    </div>
+                    <div class="bg-slate-800 hover:bg-emerald-900 p-6 rounded-2xl cursor-pointer transition">
+                        <div class="text-3xl mb-2">✅</div>
+                        <p class="font-medium"><span data-en>Attendance</span><span data-am>መገኘት</span></p>
+                    </div>
+                    <div class="bg-slate-800 hover:bg-emerald-900 p-6 rounded-2xl cursor-pointer transition">
+                        <div class="text-3xl mb-2">📝</div>
+                        <p class="font-medium"><span data-en>Homework</span><span data-am>የቤት ስራ</span></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Login Button -->
+        <div class="text-center mt-16">
+            <button onclick="showLoginModal()" 
+                    class="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 text-white px-16 py-6 rounded-3xl font-bold text-xl shadow-2xl">
+                <span data-en>Open Full HillsPage Portal</span>
+                <span data-am>ሙሉ ሂልስፔጅ ፖርታል ክፈት</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="py-32 bg-slate-900">
+            <div class="max-w-5xl mx-auto px-6">
+                <h2 class="heading-font text-6xl font-bold text-center mb-16 text-white">
+                    <span data-en>Get In Touch</span><span data-am>ያነጋግሩን</span>
+                </h2>
+                <div class="grid lg:grid-cols-2 gap-16">
+                    <div class="glass rounded-3xl p-12">
+                        <h3 class="text-3xl font-bold mb-8 text-emerald-400">
+                            <span data-en>Contact Information</span><span data-am>የእውቂያ መረጃ</span>
+                        </h3>
+                        <div class="space-y-8 text-lg">
+                            <p><i class="fas fa-map-marker-alt text-emerald-400 mr-4"></i> Lemi Kura Subcity, Woreda 8, Near Summit, Addis Ababa, Ethiopia</p>
+                            <p><i class="fas fa-phone text-emerald-400 mr-4"></i> +251 93 804 9494</p>
+                            <p><i class="fas fa-envelope text-emerald-400 mr-4"></i> info@hhaethio.com</p>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-3xl p-12">
+                        <form id="contactForm" class="space-y-8">
+                            <input type="text" id="name" required placeholder="Your Name / ስምዎ" 
+                                   class="w-full px-8 py-6 bg-slate-800 border border-emerald-700 rounded-3xl text-lg focus:border-emerald-400 outline-none">
+                            
+                            <input type="email" id="email" required placeholder="Email / ኢሜይል" 
+                                   class="w-full px-8 py-6 bg-slate-800 border border-emerald-700 rounded-3xl text-lg focus:border-emerald-400 outline-none">
+                            
+                            <input type="tel" id="phone" placeholder="Phone / ስልክ" 
+                                   class="w-full px-8 py-6 bg-slate-800 border border-emerald-700 rounded-3xl text-lg focus:border-emerald-400 outline-none">
+                            
+                            <textarea id="message" rows="5" required placeholder="Your Message / መልእክትዎ" 
+                                      class="w-full px-8 py-6 bg-slate-800 border border-emerald-700 rounded-3xl text-lg focus:border-emerald-400 outline-none resize-y"></textarea>
+                            
+                            <button type="submit" 
+                                    class="w-full bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 py-7 rounded-3xl font-bold text-2xl">
+                                <span data-en>Send Message</span><span data-am>መልእክት ላክ</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-16 text-center text-gray-400 border-t border-emerald-900/30">
+        <p>© 2026 Harmony Hills Academy • Lemi Kura, Addis Ababa, Ethiopia</p>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100]">
+        <div class="glass rounded-3xl p-12 max-w-md w-full mx-4">
+            <div class="flex justify-between mb-12">
+                <h3 class="text-4xl font-bold text-white future-font">
+                    <span data-en>Secure Portal</span><span data-am>ደህንነቱ የተጠበቀ ፖርታል</span>
+                </h3>
+                <button onclick="hideLoginModal()" class="text-5xl text-gray-400 hover:text-white">×</button>
+            </div>
+            <form onsubmit="handleLogin(event)" class="space-y-8">
+                <input id="login-id" type="text" required placeholder="Student ID or Email" class="w-full px-8 py-6 bg-slate-800 border border-emerald-700 rounded-3xl text-lg focus:border-emerald-400 outline-none">
+                <input id="login-password" type="password" required placeholder="Password" class="w-full px-8 py-6 bg-slate-800 border border-emerald-700 rounded-3xl text-lg focus:border-emerald-400 outline-none">
+                <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-500 py-7 rounded-3xl font-bold text-2xl">
+                    <span data-en>Sign In</span><span data-am>ግባ</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="dates-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100]">
+        <div class="glass rounded-3xl p-10 max-w-lg w-full mx-4">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-3xl font-bold"><span data-en>Important Dates 2026</span><span data-am>አስፈላጊ ቀኖች 2018</span></h3>
+                <button onclick="hideDatesModal()" class="text-4xl text-gray-400 hover:text-white">×</button>
+            </div>
+            <ul class="space-y-6 text-lg">
+                <li><span class="text-emerald-400 font-bold">April 30, 2026</span> – Application Deadline</li>
+                <li><span class="text-emerald-400 font-bold">May 15, 2026</span> – Entrance Assessment</li>
+                <li><span class="text-emerald-400 font-bold">June 15, 2026</span> – Admission Offers Sent</li>
+                <li><span class="text-emerald-400 font-bold">September 1, 2026</span> – New Academic Year Begins</li>
+            </ul>
+            <button onclick="hideDatesModal()" class="mt-10 w-full bg-emerald-600 hover:bg-emerald-700 py-5 rounded-3xl font-bold">Close</button>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
