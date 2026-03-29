@@ -31,16 +31,7 @@ function handleLogin(e) {
     hideLoginModal();
 }
 
-// ==================== DATES MODAL ====================
-function showDatesModal() {
-    document.getElementById('dates-modal').classList.remove('hidden');
-}
-
-function hideDatesModal() {
-    document.getElementById('dates-modal').classList.add('hidden');
-}
-
-// ==================== CONTACT FORM - Google Sheets ====================
+// ==================== CONTACT FORM - Connected to Google Sheet ====================
 function handleContact(e) {
     e.preventDefault();
 
@@ -54,8 +45,7 @@ function handleContact(e) {
         return;
     }
 
-    // === YOUR GOOGLE APPS SCRIPT URL ===
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxNvU04zgReEDH_jh16pibUOW4MkjyKIHnUPmEar2KcVEMktAq6gADQ08v6otroubk9/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzwUAPNL2Zv8IWKqfNE16vTRtrQECWjeFv8KXy_Qply8z6PSzTQ3jszxFlApNU1Jebp/exec";
 
     const formData = new FormData();
     formData.append('name', name);
@@ -72,10 +62,10 @@ function handleContact(e) {
             alert(`Thank you, ${name}! / እናመሰግናለን, ${name}!\n\nYour message has been received successfully.`);
             e.target.reset();
         } else {
-            alert("Failed to send. Please try again.");
+            alert("Failed to send message. Please try again.");
         }
     })
     .catch(() => {
-        alert("Connection error. Please check your internet.");
+        alert("Connection error. Please check your internet and try again.");
     });
 }
