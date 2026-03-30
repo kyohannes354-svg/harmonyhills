@@ -23,16 +23,7 @@ function showLoginModal() {
 
 function hideLoginModal() {
     document.getElementById('login-modal').classList.add('hidden');
-}
-
-function handleLogin(e) {
-    e.preventDefault();
-    alert("✅ Welcome! / እንኳን ደህና መጡ! (Demo)");
-    hideLoginModal();
-}
-
-// ==================== CONTACT FORM - Connected to Google Sheet ====================
-function handleContact(e) {
+}function handleContact(e) {
     e.preventDefault();
 
     const name = document.getElementById('name').value.trim();
@@ -45,7 +36,7 @@ function handleContact(e) {
         return;
     }
 
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzwUAPNL2Zv8IWKqfNE16vTRtrQECWjeFv8KXy_Qply8z6PSzTQ3jszxFlApNU1Jebp/exec";
+    const scriptURL = "google.com/macros/s/AKfycbzwUAPNL2Zv8IWKqfNE16vTRtrQECWjeFv8KXy_Qply8z6PSzTQ3jszxFlApNU1Jebp/exec";
 
     const formData = new FormData();
     formData.append('name', name);
