@@ -23,7 +23,7 @@ body {
     letter-spacing: 0.4px;
 }
 
-/* HERO BACKGROUND FIX */
+/* HERO BACKGROUND  */
 .hero-bg {
     background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%), 
                 url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
@@ -89,7 +89,6 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Make sure hero image covers full area */
 .hero-bg {
     background-size: cover;
     background-position: center;

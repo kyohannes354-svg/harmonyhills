@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Portal - Harmony Hills Academy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body { background: #0f172a; color: #e2e8f0; }
+    .glass { 
+      background: rgba(15, 23, 42, 0.9); 
+      backdrop-filter: blur(16px); 
+      border: 1px solid #334155;
+    }
+    .tab-btn.active {
+      border-bottom: 3px solid #10b981;
+      color: #10b981;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <div class="max-w-7xl mx-auto px-6 py-10">
+    
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-10">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-2xl flex items-center justify-center text-white text-3xl font-bold">HH</div>
+        <div>
+          <h1 class="text-3xl font-bold">Teacher Portal</h1>
+          <p class="text-emerald-400">Harmony Hills Academy • Grade 9 - 9A</p>
+        </div>
+      </div>
+      
+      <button onclick="logout()" 
+              class="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-2xl flex items-center gap-2 font-medium">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex gap-2 mb-10 border-b border-slate-700 pb-1">
+      <button onclick="showTab(0)" class="tab-btn active px-8 py-4 text-lg">Attendance</button>
+      <button onclick="showTab(1)" class="tab-btn px-8 py-4 text-lg">Enter Grades</button>
+      <button onclick="showTab(2)" class="tab-btn px-8 py-4 text-lg">Class Results</button>
+    </div>
+
+    <!-- Attendance Tab -->
+    <div id="tab-0" class="tab-content">
+      <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+        <i class="fas fa-clipboard-check text-emerald-400"></i>
+        Mark Today's Attendance
+      </h2>
+      <div class="glass rounded-3xl p-8">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-slate-600">
+              <th class="text-left p-5 font-medium text-gray-300">Student Name</th>
+              <th class="p-5 text-center">Present</th>
+              <th class="p-5 text-center">Absent</th>
+              <th class="p-5 text-center">Late</th>
+            </tr>
+          </thead>
+          <tbody id="student-list" class="divide-y divide-slate-700"></tbody>
+        </table>
+        
+        <button onclick="submitAttendance()" 
+                class="mt-10 w-full bg-emerald-600 hover:bg-emerald-700 py-6 rounded-3xl font-bold text-xl flex items-center justify-center gap-3">
+          <i class="fas fa-check"></i>
+          Submit Attendance
+        </button>
+      </div>
+    </div>
+
+    <!-- Grades Tab -->
+    <div id="tab-1" class="tab-content hidden">
+      <h2 class="text-3xl font-bold mb-6">Enter Grades</h2>
+      <div class="glass rounded-3xl p-8">
+        <select id="subject-select" class="w-full p-5 bg-slate-900 border border-slate-600 rounded-3xl mb-8 text-lg">
+          <option value="">Select Subject</option>
+          <option>Mathematics</option>
+          <option>English</option>
+          <option>Biology</option>
+          <option>Physics</option>
+          <option>History</option>
+          <option>Citizenship</option>
+        </select>
+        
+        <div id="grades-input-area" class="space-y-6"></div>
+        
+        <button onclick="submitGrades()" 
+                class="mt-10 w-full bg-emerald-600 hover:bg-emerald-700 py-6 rounded-3xl font-bold text-xl">
+          Save Grades
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Tab -->
+    <div id="tab-2" class="tab-content hidden">
+      <h2 class="text-3xl font-bold mb-6">Class Results Overview</h2>
+      <div id="results-display" class="glass rounded-3xl p-8 text-center">
+        <p class="text-gray-400 py-12">Grades will appear here after saving</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwA3lb6eKJniiegy6aEt_Mtc1pqhKSi8FGhdus4QWYdDKP2Sa4kP47yq5U_OtNmMRF2UA/exec";
+
+    let students = [
+      {id: "S001", name: "Kidus Yohannes"},
+      {id: "S002", name: "Abebe Kebede"},
+      {id: "S003", name: "Sara Mohammed"},
+      {id: "S004", name: "Meron Tesfaye"},
+      {id: "S005", name: "Yonas Alemayehu"}
+    ];
+
+    function loadStudents() {
+      const tbody = document.getElementById('student-list');
+      tbody.innerHTML = '';
+
+      students.forEach(student => {
+        const row = document.createElement('tr');
+        row.className = "hover:bg-slate-800 transition";
+        row.innerHTML = `
+          <td class="p-5 font-medium">${student.name}</td>
+          <td class="p-5 text-center">
+            <input type="radio" name="att-${student.id}" value="Present" checked class="w-5 h-5 accent-emerald-500">
+          </td>
+          <td class="p-5 text-center">
+            <input type="radio" name="att-${student.id}" value="Absent" class="w-5 h-5 accent-red-500">
+          </td>
+          <td class="p-5 text-center">
+            <input type="radio" name="att-${student.id}" value="Late" class="w-5 h-5 accent-amber-500">
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function loadGradesInput() {
+      const container = document.getElementById('grades-input-area');
+      container.innerHTML = '';
+
+      students.forEach(student => {
+        const div = document.createElement('div');
+        div.className = "flex items-center gap-6 bg-slate-900 p-6 rounded-3xl";
+        div.innerHTML = `
+          <div class="flex-1 font-medium">${student.name}</div>
+          <input type="number" id="score-${student.id}" 
+                 class="w-28 px-5 py-4 bg-slate-800 border border-emerald-700 rounded-2xl text-center text-lg focus:border-emerald-500 outline-none" 
+                 placeholder="Score" min="0" max="100">
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function showTab(n) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+      document.getElementById(`tab-${n}`).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach((btn, index) => {
+        btn.classList.toggle('active', index === n);
+      });
+
+      if (n === 1) loadGradesInput();   // Load grades input when tab is opened
+    }
+
+    // Submit Attendance
+    async function submitAttendance() {
+      const records = [];
+      students.forEach(student => {
+        const selected = document.querySelector(`input[name="att-${student.id}"]:checked`);
+        if (selected) {
+          records.push({
+            studentId: student.id,
+            studentName: student.name,
+            status: selected.value
+          });
+        }
+      });
+
+      const btn = event.target;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
+      btn.disabled = true;
+
+      try {
+        const response = await fetch(WEB_APP_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            action: "attendance", 
+            records: records 
+          })
+        });
+
+        const result = await response.json();
+        if (result.status === "success") {
+          alert("✅ Attendance saved successfully to Google Sheet!");
+        } else {
+          alert("Failed to save attendance.");
+        }
+      } catch (err) {
+        alert("❌ Connection error. Please check your Web App URL.");
+      } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    }
+
+    // Submit Grades
+    async function submitGrades() {
+      const subject = document.getElementById('subject-select').value;
+      if (!subject) {
+        alert("Please select a subject first!");
+        return;
+      }
+
+      const grades = [];
+      students.forEach(student => {
+        const scoreInput = document.getElementById(`score-${student.id}`);
+        const score = scoreInput ? scoreInput.value.trim() : "";
+        if (score) {
+          grades.push({
+            studentId: student.id,
+            studentName: student.name,
+            subject: subject,
+            score: parseFloat(score)
+          });
+        }
+      });
+
+      if (grades.length === 0) {
+        alert("Please enter at least one student's score.");
+        return;
+      }
+
+      const btn = event.target;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving Grades...`;
+      btn.disabled = true;
+
+      try {
+        const response = await fetch(WEB_APP_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            action: "submit_grades", 
+            grades: grades 
+          })
+        });
+
+        const result = await response.json();
+        if (result.status === "success") {
+          alert(`✅ Grades for ${subject} saved successfully!`);
+        } else {
+          alert("Failed to save grades.");
+        }
+      } catch (err) {
+        alert("❌ Connection error.");
+      } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    }
+
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "index.html";
+      }
+    }
+
+    // Initialize
+    window.onload = function() {
+      loadStudents();
+      showTab(0);
+    };
+  </script>
+</body>
+</html>

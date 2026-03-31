@@ -269,10 +269,18 @@
                             <div class="flex justify-between bg-[#13293d] p-4 rounded-2xl">
                                 <span class="text-gray-300">12:15 - 07:00</span>
                                 <span class="font-medium text-white">HPE</span>
-                                    </div>
+                                </div>
                             <div class="flex justify-between bg-[#13293d] p-4 rounded-2xl">
                                 <span class="text-gray-300">07:00 - 08:00</span>
                                 <span class="font-medium text-white">lunch time</span>
+                                    </div>
+                            <div class="flex justify-between bg-[#13293d] p-4 rounded-2xl">
+                                <span class="text-gray-300">08:00 - 08:45</span>
+                                <span class="font-medium text-white">citizenship</span>
+                                    </div>
+                            <div class="flex justify-between bg-[#13293d] p-4 rounded-2xl">
+                                <span class="text-gray-300">08:45 - 09:30</span>
+                                <span class="font-medium text-white">physics</span>
                                
                             </div>
                         </div>
@@ -482,7 +490,7 @@
         </div>
     </div>
 
-    <script>
+   <script>
     // ==================== LANGUAGE SWITCH ====================
     function switchLanguage(lang) {
         document.documentElement.className = `lang-${lang}`;
@@ -501,6 +509,9 @@
     const savedLang = localStorage.getItem('preferredLang') || 'en';
     switchLanguage(savedLang);
 
+    // ==================== GOOGLE APPS SCRIPT URL ====================
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwA3lb6eKJniiegy6aEt_Mtc1pqhKSi8FGhdus4QWYdDKP2Sa4kP47yq5U_OtNmMRF2UA/exec ";
+
     // ==================== LOGIN MODAL ====================
     function showLoginModal() {
         document.getElementById('login-modal').classList.remove('hidden');
@@ -510,13 +521,62 @@
         document.getElementById('login-modal').classList.add('hidden');
     }
 
-    function handleLogin(e) {
+    // ==================== LOGIN FUNCTION (Connected to your Google Sheet) ====================
+    async function handleLogin(e) {
         e.preventDefault();
-        alert("✅ Welcome! / እንኳን ደህና መጡ! (Demo)");
-        hideLoginModal();
+
+        const username = document.getElementById('login-id').value.trim();
+        const password = document.getElementById('login-password').value.trim();
+
+        if (!username || !password) {
+            alert("Please enter username and password / እባክዎ የተጠቃሚ ስም እና ሚስጥር ቃል ያስገቡ");
+            return;
+        }
+
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = "Checking...";
+        submitBtn.disabled = true;
+
+        try {
+            const response = await fetch(WEB_APP_URL, {
+                method: 'POST',
+                body: JSON.stringify({
+                    action: "login",
+                    username: username,
+                    password: password
+                }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const result = await response.json();
+
+            if (result.status === "success") {
+                hideLoginModal();
+
+                const role = (result.role || "Student").toLowerCase().trim();
+
+                if (role === "teacher") {
+                    alert(`✅ Welcome, Teacher ${result.fullname || username}!`);
+                    window.location.href = "teacher-portal.html";
+                } else {
+                    alert(`✅ Welcome back, ${result.fullname || username}!`);
+                    const hillsPage = document.getElementById('hills-page');
+                    if (hillsPage) hillsPage.scrollIntoView({ behavior: 'smooth' });
+                }
+            } else {
+                alert("❌ Invalid username or password!\nPlease try again.");
+            }
+        } catch (error) {
+            alert("❌ Connection error. Please make sure Web App is deployed as 'Anyone'.");
+            console.error(error);
+        } finally {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
     }
 
-    // ==================== PAYMENT FUNCTION ====================
+    // ==================== PAYMENT FUNCTION (unchanged) ====================
     function processPayment() {
         const studentId = document.getElementById('student-id').value.trim();
         const amount = document.getElementById('amount').value;
@@ -528,19 +588,20 @@
         }
 
         alert(`✅ Payment of ${amount} ETB for ${purpose} has been initiated successfully!\n\nThank you for choosing Harmony Hills Academy.\n\n( This is a demo - no real payment processed )`);
-        
-        // Optional: clear fields after demo
-        // document.getElementById('student-id').value = '';
-        // document.getElementById('amount').value = '';
     }
 
-    // ==================== CONTACT FORM ====================
+    // ==================== CONTACT FORM (unchanged) ====================
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const name = document.getElementById('name').value || "Parent";
         alert(`Thank you, ${name}! / እናመሰግናለን, ${name}!\n\nYour message has been received.`);
         this.reset();
     });
-    </script>
+
+    // Mobile menu button
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+        alert("Mobile menu coming soon!");
+    });
+</script>
 </body>
 </html>
