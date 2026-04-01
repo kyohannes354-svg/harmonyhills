@@ -17,7 +17,7 @@ const savedLang = localStorage.getItem('preferredLang') || 'en';
 switchLanguage(savedLang);
 
 // ==================== GOOGLE APPS SCRIPT URL ====================
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxYw3EHW6e4ab5zZ0J_qFRRV6JXv-LS1Rh16B_UN-DbqHYT3A3l11Jg4Ck1pGR0Go4FCw/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyFn8C9x45K8gJtOdMdMZC-9yX5A95_OQG-3C_NYTyR2TL46PT-xpxkQg9o9p4kB2mh/exec";
 
 // ==================== LOGIN MODAL ====================
 function showLoginModal() {
@@ -85,6 +85,53 @@ async function handleLogin(e) {
     }
 }
 
+// ==================== PAYMENT FUNCTION - NOW SAVES TO GOOGLE SHEET ====================
+async function processPayment() {
+    const studentId = document.getElementById('student-id').value.trim();
+    const amount = document.getElementById('amount').value;
+    const purpose = document.getElementById('payment-for').value;
+
+    if (!studentId || !amount || !purpose) {
+        alert("Please fill in all fields / እባክዎ ሁሉንም ቦታዎች ይሙሉ");
+        return;
+    }
+
+    const btn = document.querySelector('#payment button'); 
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
+    btn.disabled = true;
+
+    try {
+        const response = await fetch(WEB_APP_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                action: "payment",
+                studentId: studentId,
+                amount: amount,
+                purpose: purpose
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.status === "success") {
+            alert(`✅ Payment of ${amount} ETB for ${purpose} has been initiated successfully!\n\nThank you for choosing Harmony Hills Academy.\n\n( This is a demo - no real payment processed )`);
+            // Clear form after success
+            document.getElementById('student-id').value = '';
+            document.getElementById('amount').value = '';
+        } else {
+            alert("❌ Failed to record payment. Please try again.");
+        }
+    } catch (error) {
+        alert("❌ Connection error. Make sure the Web App is deployed correctly.");
+        console.error(error);
+    } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
+}
+
 // ==================== CONTACT FORM ====================
 function handleContact(e) {
     e.preventDefault();
@@ -99,20 +146,22 @@ function handleContact(e) {
         return;
     }
 
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwA3lb6eKJniiegy6aEt_Mtc1pqhKSi8FGhdus4QWYdDKP2Sa4kP47yq5U_OtNmMRF2UA/exec";
-
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('phone', phone);
-    formData.append('message', message);
+    const scriptURL = WEB_APP_URL;
 
     fetch(scriptURL, {
         method: 'POST',
-        body: formData
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            action: "contact",
+            name: name,
+            email: email,
+            phone: phone,
+            message: message
+        })
     })
-    .then(response => {
-        if (response.ok) {
+    .then(response => response.json())
+    .then(result => {
+        if (result.status === "success") {
             alert(`Thank you, ${name}! / እናመሰግናለን, ${name}!\n\nYour message has been received successfully.`);
             e.target.reset();
         } else {
@@ -130,4 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', handleContact);
     }
+});
+
+// Mobile menu button
+document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+    alert("Mobile menu coming soon!");
 });
