@@ -7,6 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .glass { 
+            background: rgba(15, 23, 42, 0.95); 
+            backdrop-filter: blur(16px); 
+            border: 1px solid #334155;
+        }
+    </style>
 </head>
 <body class="tail-container text-gray-100 bg-gradient-to-b from-slate-950 to-slate-900">
 
@@ -471,22 +478,46 @@
         <p>© 2026 Harmony Hills Academy • Lemi Kura, Addis Ababa, Ethiopia</p>
     </footer>
 
-    <!-- Login Modal -->
-    <div id="login-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100]">
-        <div class="glass rounded-3xl p-12 max-w-md w-full mx-4">
-            <div class="flex justify-between mb-12">
-                <h3 class="text-4xl font-bold text-white future-font">
-                    <span data-en>Secure Portal</span><span data-am>ደህንነቱ የተጠበቀ ፖርታል</span>
+    <!-- IMPROVED LOGIN MODAL -->
+    <div id="login-modal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-[100]">
+        <div class="glass rounded-3xl p-10 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-3xl font-bold text-white">
+                    <span data-en>Portal Login</span>
+                    <span data-am>ፖርታል ግባ</span>
                 </h3>
-                <button onclick="hideLoginModal()" class="text-5xl text-gray-400 hover:text-white">×</button>
+                <button onclick="hideLoginModal()" class="text-4xl text-gray-400 hover:text-white transition">×</button>
             </div>
-            <form onsubmit="handleLogin(event)" class="space-y-8">
-                <input id="login-id" type="text" required placeholder="Student ID or Email" class="w-full px-8 py-6 bg-slate-800 border border-emerald-700 rounded-3xl text-lg focus:border-emerald-400 outline-none">
-                <input id="login-password" type="password" required placeholder="Password" class="w-full px-8 py-6 bg-slate-800 border border-emerald-700 rounded-3xl text-lg focus:border-emerald-400 outline-none">
-                <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-500 py-7 rounded-3xl font-bold text-2xl">
+
+            <form onsubmit="handleLogin(event)" class="space-y-6">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">
+                        <span data-en>Username / Student ID / Email</span>
+                        <span data-am>የተጠቃሚ ስም / ተማሪ መታወቂያ</span>
+                    </label>
+                    <input id="login-username" type="text" required 
+                           class="w-full px-8 py-6 bg-slate-800 border border-emerald-700 rounded-3xl text-lg focus:border-emerald-400 outline-none"
+                           placeholder="e.g. kidus yohannes or S001">
+                </div>
+
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">
+                        <span data-en>Password</span>
+                        <span data-am>ሚስጥር ቃል</span>
+                    </label>
+                    <input id="login-password" type="password" required 
+                           class="w-full px-8 py-6 bg-slate-800 border border-emerald-700 rounded-3xl text-lg focus:border-emerald-400 outline-none"
+                           placeholder="••••••••">
+                </div>
+
+                <button type="submit" id="login-btn"
+                        class="w-full bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 py-7 rounded-3xl font-bold text-2xl flex items-center justify-center gap-3">
+                    <i class="fas fa-sign-in-alt"></i>
                     <span data-en>Sign In</span><span data-am>ግባ</span>
                 </button>
             </form>
+
+            <p id="login-error" class="text-red-400 text-center mt-4 hidden"></p>
         </div>
     </div>
 
@@ -510,43 +541,47 @@
     switchLanguage(savedLang);
 
     // ==================== GOOGLE APPS SCRIPT URL ====================
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyFn8C9x45K8gJtOdMdMZC-9yX5A95_OQG-3C_NYTyR2TL46PT-xpxkQg9o9p4kB2mh/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyElwliPT1_QPTpy8SOfzMVWQ17w5ghHo4Ex6d33nvSdDFBuIiD9WFTwcQwgTFVhkZmKw/exec";
 
-    // ==================== LOGIN MODAL ====================
+    // ==================== LOGIN MODAL FUNCTIONS ====================
     function showLoginModal() {
         document.getElementById('login-modal').classList.remove('hidden');
+        document.getElementById('login-error').classList.add('hidden');
     }
 
     function hideLoginModal() {
         document.getElementById('login-modal').classList.add('hidden');
     }
 
-    // ==================== LOGIN FUNCTION ( your Google Sheet) ====================
+    // ==================== LOGIN FUNCTION ====================
     async function handleLogin(e) {
         e.preventDefault();
 
-        const username = document.getElementById('login-id').value.trim();
+        const username = document.getElementById('login-username').value.trim();
         const password = document.getElementById('login-password').value.trim();
+        const btn = document.getElementById('login-btn');
+        const errorMsg = document.getElementById('login-error');
 
         if (!username || !password) {
-            alert("Please enter username and password / እባክዎ የተጠቃሚ ስም እና ሚስጥር ቃል ያስገቡ");
+            errorMsg.textContent = "Please fill in all fields / እባክዎ ሁሉንም መስኮቶች ይሙሉ";
+            errorMsg.classList.remove('hidden');
             return;
         }
 
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = "Checking...";
-        submitBtn.disabled = true;
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> <span data-en>Signing in...</span><span data-am>በመግባት ላይ...</span>`;
+        btn.disabled = true;
+        errorMsg.classList.add('hidden');
 
         try {
             const response = await fetch(WEB_APP_URL, {
                 method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     action: "login",
                     username: username,
                     password: password
-                }),
-                headers: { 'Content-Type': 'application/json' }
+                })
             });
 
             const result = await response.json();
@@ -554,9 +589,9 @@
             if (result.status === "success") {
                 hideLoginModal();
 
-                const role = (result.role || "Student").toLowerCase().trim();
+                const role = (result.role || "student").toLowerCase().trim();
 
-                if (role === "teacher") {
+                if (role === "teacher" || role === "admin") {
                     alert(`✅ Welcome, Teacher ${result.fullname || username}!`);
                     window.location.href = "teacher-portal.html";
                 } else {
@@ -565,18 +600,20 @@
                     if (hillsPage) hillsPage.scrollIntoView({ behavior: 'smooth' });
                 }
             } else {
-                alert("❌ Invalid username or password!\nPlease try again.");
+                errorMsg.textContent = result.message || "Invalid username or password / ተጠቃሚ ስም ወይም ሚስጥር ቃል ትክክል አይደለም";
+                errorMsg.classList.remove('hidden');
             }
         } catch (error) {
-            alert("❌ Connection error. Please make sure Web App is deployed as 'Anyone'.");
+            errorMsg.textContent = "❌ Connection error. Make sure Web App is deployed as 'Anyone'.";
+            errorMsg.classList.remove('hidden');
             console.error(error);
         } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         }
     }
 
-    // ==================== PAYMENT FUNCTION (unchanged) ====================
+    // ==================== PAYMENT FUNCTION ====================
     function processPayment() {
         const studentId = document.getElementById('student-id').value.trim();
         const amount = document.getElementById('amount').value;
@@ -590,7 +627,7 @@
         alert(`✅ Payment of ${amount} ETB for ${purpose} has been initiated successfully!\n\nThank you for choosing Harmony Hills Academy.\n\n( This is a demo - no real payment processed )`);
     }
 
-    // ==================== CONTACT FORM (unchanged) ====================
+    // ==================== CONTACT FORM ====================
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const name = document.getElementById('name').value || "Parent";
@@ -601,6 +638,11 @@
     // Mobile menu button
     document.getElementById('mobile-menu-btn').addEventListener('click', () => {
         alert("Mobile menu coming soon!");
+    });
+
+    // Close login modal with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape") hideLoginModal();
     });
 </script>
 </body>

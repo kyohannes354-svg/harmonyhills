@@ -17,7 +17,7 @@ const savedLang = localStorage.getItem('preferredLang') || 'en';
 switchLanguage(savedLang);
 
 // ==================== GOOGLE APPS SCRIPT URL ====================
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyFn8C9x45K8gJtOdMdMZC-9yX5A95_OQG-3C_NYTyR2TL46PT-xpxkQg9o9p4kB2mh/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyElwliPT1_QPTpy8SOfzMVWQ17w5ghHo4Ex6d33nvSdDFBuIiD9WFTwcQwgTFVhkZmKw/exec";
 
 // ==================== LOGIN MODAL ====================
 function showLoginModal() {

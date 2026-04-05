@@ -30,7 +30,7 @@
         <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-2xl flex items-center justify-center text-white text-3xl font-bold">HH</div>
         <div>
           <h1 class="text-3xl font-bold">Teacher Portal</h1>
-          <p class="text-emerald-400">Harmony Hills Academy • Grade 9 - 9A</p>
+          <p class="text-emerald-400" id="welcome-text">Hills page • Grade 9 - 12</p>
         </div>
       </div>
       
@@ -107,14 +107,31 @@
   </div>
 
   <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyFn8C9x45K8gJtOdMdMZC-9yX5A95_OQG-3C_NYTyR2TL46PT-xpxkQg9o9p4kB2mh/exec";
+    // ==================== LOGIN PROTECTION - Added ====================
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+      alert("Please login first!");
+      window.location.href = "index.html";
+    }
+
+    // Show welcome message with teacher name
+    const teacherName = localStorage.getItem('teacherName') || "Teacher";
+    document.getElementById('welcome-text').innerHTML = `Welcome back, <strong>${teacherName}</strong> • Grade 9 - 12`;
+
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyElwliPT1_QPTpy8SOfzMVWQ17w5ghHo4Ex6d33nvSdDFBuIiD9WFTwcQwgTFVhkZmKw/exec";
 
     let students = [
       {id: "S001", name: "Kidus Yohannes"},
       {id: "S002", name: "Abebe Kebede"},
       {id: "S003", name: "Sara "},
       {id: "S004", name: "Meron Tesfaye"},
-      {id: "S005", name: "Yonas Alemayehu"}
+      {id: "S005", name: "Yonas Alemayehu"},
+      {id: "S006", name: "Nahom"},
+      {id: "S007", name: "luel"},
+      {id: "S008", name: "Robel"},
+      {id: "S009", name: "Bruk"},
+      {id: "S010", name: "Hiyab"},
+      {id: "S011", name: "mike"},
+      {id: "S012", name: "Nati"},
     ];
 
     function loadStudents() {
@@ -165,7 +182,7 @@
         btn.classList.toggle('active', index === n);
       });
 
-      if (n === 1) loadGradesInput();   // Load grades input when tab is opened
+      if (n === 1) loadGradesInput();
     }
 
     // Submit Attendance
@@ -267,8 +284,11 @@
       }
     }
 
+    // Updated Logout Function
     function logout() {
       if (confirm("Are you sure you want to logout?")) {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('teacherName');
         window.location.href = "index.html";
       }
     }
